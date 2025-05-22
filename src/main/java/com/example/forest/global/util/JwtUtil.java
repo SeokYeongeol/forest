@@ -1,5 +1,6 @@
 package com.example.forest.global.util;
 
+import com.example.forest.domain.member.entity.Member;
 import com.example.forest.domain.member.role.MemberRole;
 import com.example.forest.global.exception.ErrorCode;
 import com.example.forest.global.exception.ServerException;
@@ -35,14 +36,14 @@ public class JwtUtil {
 		key = Keys.hmacShaKeyFor(bytes);
 	}
 	
-	public String createAccessToken(Long memberId, String loginId, String nickname, MemberRole role) {
+	public String createAccessToken(Member member) {
 		Date date = new Date();
 		
 		return BEARER_PREFIX + Jwts.builder()
-			.setSubject(memberId.toString())
-			.claim("loginId", loginId)
-			.claim("nickname", nickname)
-			.claim("role", role)
+			.setSubject(member.getId().toString())
+			.claim("email", member.getEmail())
+			.claim("nickname", member.getNickname())
+			.claim("role", member.getRole())
 			.setExpiration(new Date(date.getTime() + accessTokenTime))
 			.setIssuedAt(date)
 			.signWith(key, signatureAlgorithm)

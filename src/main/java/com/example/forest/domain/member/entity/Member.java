@@ -19,7 +19,7 @@ public class Member extends TimeStamped {
 	private Long id;
 	
 	@Column(unique = true)
-	private String loginId;
+	private String email;
 	
 	@Column(unique = true)
 	private String nickname;
@@ -33,8 +33,8 @@ public class Member extends TimeStamped {
 	private LocalDateTime deletedAt;
 	
 	@Builder
-	public Member(String loginId, String nickname, String password, String address, MemberRole role) {
-		this.loginId = loginId;
+	public Member(String email, String nickname, String password, String address, MemberRole role) {
+		this.email = email;
 		this.nickname = nickname;
 		this.password = password;
 		this.address = address;
