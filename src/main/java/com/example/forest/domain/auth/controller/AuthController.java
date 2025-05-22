@@ -19,12 +19,12 @@ public class AuthController {
 	
 	private final AuthService authService;
 	
-	@PostMapping("/v1/signup")
+	@PostMapping("/v1/auth/signup")
 	public ResponseEntity<AuthResponse> signUpV1(@Valid @RequestBody SignUpRequest request) {
 		return ResponseEntity.ok(authService.signUpV1(request));
 	}
 	
-	@PostMapping("/v1/login")
+	@PostMapping("/v1/auth/login")
 	public ResponseEntity<AuthResponse> loginV1(@Valid @RequestBody LoginRequest request) {
 		return ResponseEntity.ok(authService.loginV1(request));
 	}

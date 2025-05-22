@@ -3,7 +3,7 @@ spring:
     name: forest
 
   datasource:
-    url: ${DB_URL}
+    url: ${DB_URL}/forest
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -17,3 +17,9 @@ spring:
         format_sql: true
         use_sql_comments: true
         dialect: org.hibernate.dialect.MySQLDialect
+
+jwt:
+  secret:
+    key: ${JWT_SECRET_KEY}
+  access:
+    token: ${JWT_ACCESS_TOKEN}

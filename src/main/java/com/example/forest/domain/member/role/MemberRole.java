@@ -21,7 +21,7 @@ public enum MemberRole implements GrantedAuthority {
 		return Arrays.stream(MemberRole.values())
 			.filter(f -> f.name().equalsIgnoreCase(role))
 			.findFirst()
-			.orElseThrow(() -> new ServerException(ErrorCode.INVALID_USER_ROLE));
+			.orElseThrow(() -> new ServerException(ErrorCode.INVALID_MEMBER_ROLE));
 	}
 	
 	@Override

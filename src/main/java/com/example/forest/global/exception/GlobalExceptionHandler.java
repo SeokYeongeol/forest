@@ -39,4 +39,19 @@ public class GlobalExceptionHandler {
 		
 		return ResponseEntity.status(errorCode.getStatus()).body(response);
 	}
+	
+	@ExceptionHandler(NullPointerException.class)
+	public ResponseEntity<ErrorResponse> nullPointerException(NullPointerException ex) {
+		HttpStatus status = HttpStatus.CONFLICT;
+		Map<String, String> fieldErrors = new HashMap<>();
+		fieldErrors.put("nullPointer", ex.getMessage() != null ? ex.getMessage() : "서버 처리 중 NPE 발생");
+		
+		ErrorResponse response = new ErrorResponse(
+			status.name(),
+			"서버 처리 중 NPE 발생",
+			String.valueOf(status.value()),
+			fieldErrors
+		);
+		return ResponseEntity.status(status).body(response);
+	}
 }
