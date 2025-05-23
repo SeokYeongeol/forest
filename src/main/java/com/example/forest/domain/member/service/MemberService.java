@@ -1,9 +1,11 @@
 package com.example.forest.domain.member.service;
 
 import com.example.forest.domain.member.dto.request.ChangeAddressRequest;
+import com.example.forest.domain.member.dto.request.ChangeNicknameRequest;
 import com.example.forest.domain.member.dto.request.ChangePasswordRequest;
 import com.example.forest.domain.member.dto.request.DeleteMemberRequest;
 import com.example.forest.domain.member.dto.response.ChangeAddressResponse;
+import com.example.forest.domain.member.dto.response.ChangeNicknameResponse;
 import com.example.forest.domain.member.entity.Member;
 import com.example.forest.domain.member.repository.MemberRepository;
 import com.example.forest.global.entity.AuthUser;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 	
 	private final PasswordEncoder passwordEncoder;
+	private final MemberRepository memberRepository;
 	
 	@Transactional
 	public ChangeAddressResponse changeAddress(AuthUser authUser, ChangeAddressRequest request) {
@@ -38,6 +41,17 @@ public class MemberService {
 		}
 		
 		member.changePassword(passwordEncoder.encode(request.getNewPassword()));
+	}
+	
+	@Transactional
+	public ChangeNicknameResponse changeNickname(AuthUser authUser, ChangeNicknameRequest request) {
+		if (memberRepository.existsByNickname(request.getNickname())) {
+			throw new ServerException(ErrorCode.MEMBER_NICKNAME_DUPLICATION);
+		}
+		
+		Member member = Member.fromAuth(authUser.getId());
+		member.changeNickname(request.getNickname());
+		return ChangeNicknameResponse.of(member);
 	}
 	
 	@Transactional

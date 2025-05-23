@@ -49,6 +49,10 @@ public class Member extends TimeStamped {
 		this.password = password;
 	}
 	
+	public void changeNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	
 	public void deleteMember() {
 		this.deletedAt = LocalDateTime.now();
 	}

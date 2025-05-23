@@ -1,9 +1,11 @@
 package com.example.forest.domain.member.controller;
 
 import com.example.forest.domain.member.dto.request.ChangeAddressRequest;
+import com.example.forest.domain.member.dto.request.ChangeNicknameRequest;
 import com.example.forest.domain.member.dto.request.ChangePasswordRequest;
 import com.example.forest.domain.member.dto.request.DeleteMemberRequest;
 import com.example.forest.domain.member.dto.response.ChangeAddressResponse;
+import com.example.forest.domain.member.dto.response.ChangeNicknameResponse;
 import com.example.forest.domain.member.service.MemberService;
 import com.example.forest.global.entity.AuthUser;
 import jakarta.validation.Valid;
@@ -34,6 +36,14 @@ public class MemberController {
 	) {
 		memberService.changePassword(authUser, request);
 		return ResponseEntity.ok().body("비밀번호가 변경되었습니다.");
+	}
+	
+	@PatchMapping("/v1/members/nickname")
+	public ResponseEntity<ChangeNicknameResponse> changeNickname(
+		@AuthenticationPrincipal AuthUser authUser,
+		@Valid @RequestBody ChangeNicknameRequest request
+	) {
+		return ResponseEntity.ok(memberService.changeNickname(authUser, request));
 	}
 	
 	@DeleteMapping("/v1/members/delete")

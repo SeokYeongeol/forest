@@ -4,6 +4,7 @@ import com.example.forest.domain.member.role.MemberRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter
@@ -14,6 +15,7 @@ public class SignUpRequest {
 	private String email;
 	
 	@NotNull(message = "닉네임을 입력해주세요.")
+	@Size(min = 2, max = 8, message = "닉네임은 2~8자 입니다.")
 	private String nickname;
 	
 	@NotNull(message = "비밀번호를 입력해주세요.")
