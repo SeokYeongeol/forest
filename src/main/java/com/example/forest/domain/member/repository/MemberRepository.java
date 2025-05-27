@@ -1,6 +1,7 @@
 package com.example.forest.domain.member.repository;
 
 import com.example.forest.domain.member.entity.Member;
+import com.example.forest.global.oauth.provider.AuthProvider;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +19,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 	boolean existsByEmail(String email);
 	
 	boolean existsByNickname(String nickname);
+	
+	Optional<Member> findByProviderTypeAndProviderId(AuthProvider providerType, String providerId);
 }
